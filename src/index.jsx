@@ -1,12 +1,13 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
-import SplashScreen from "./components/SplashScreen/SplashScreen";
+import RouteDispatcher from "./RouteDispatcher";
 import "./index.less";
 
-const root = ReactDOM.createRoot(document.getElementById("root"));
+const root = document.getElementById("root");
+const appRoot = ReactDOM.createRoot(root);
 
-root.render(
+appRoot.render(
   <React.StrictMode>
-    <SplashScreen />
+    <RouteDispatcher />
   </React.StrictMode>
 );

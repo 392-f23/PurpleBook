@@ -1,40 +1,47 @@
-import { useState, useEffect } from "react";
+import React, { useEffect, useRef } from "react";
 import PurpleBookLogin from "../PurpleBookLogin/PurpleBookLogin";
 import "./SplashScreen.less";
 
 const SplashScreen = () => {
-  const [animationCompleted, setAnimationCompleted] = useState(false);
+  const splashScreenRef = useRef(null);
 
   useEffect(() => {
-    const timer = setTimeout(() => {
-      setAnimationCompleted(true);
-    }, 3200);
+    const splashScreenElement = splashScreenRef.current;
+    const handleAnimationEnd = () => {
+      splashScreenElement.style.display = "none";
+    };
 
-    return () => clearTimeout(timer);
+    setTimeout(() => {
+      splashScreenElement.addEventListener("animationend", handleAnimationEnd);
+    }, 2700);
+
+    return () => {
+      splashScreenElement.removeEventListener(
+        "animationend",
+        handleAnimationEnd
+      );
+    };
   }, []);
 
   return (
     <>
-      {!animationCompleted ? (
-        <div className="splash-screen">
-          <div className="upper-part">
-            <span className="text">P</span>
-            <span className="text">U</span>
-            <span className="text">R</span>
-            <span className="text">P</span>
-            <span className="text">L</span>
-            <span className="text">E</span>
-          </div>
-          <div className="lower-part">
-            <span className="text">B</span>
-            <span className="text">O</span>
-            <span className="text">O</span>
-            <span className="text">K</span>
-          </div>
+      <div className="splash-screen" ref={splashScreenRef}>
+        <div className="upper">
+          <span className="text">P</span>
+          <span className="text">U</span>
+          <span className="text">R</span>
+          <span className="text">P</span>
+          <span className="text">L</span>
+          <span className="text">E</span>
         </div>
-      ) : (
-        <PurpleBookLogin />
-      )}
+        <div className="lower">
+          <span className="text">B</span>
+          <span className="text">O</span>
+          <span className="text">O</span>
+          <span className="text">K</span>
+        </div>
+      </div>
+      <PurpleBookLogin />
     </>
   );
 };
