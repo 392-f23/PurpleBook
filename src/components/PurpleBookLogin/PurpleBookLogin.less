@@ -43,7 +43,7 @@
   justify-content: flex-end;
   align-items: center;
   z-index: 10;
-  margin-top: 20px;
+  margin-top: 5%;
 }
 
 .login-multilingual-accrodin {
@@ -56,7 +56,7 @@
   overflow-wrap: break-word;
   color: rgba(0, 0, 0, 1) !important;
   font-family: "VT323" !important;
-  font-size: 18px !important;
+  font-size: 1.125rem !important;
   font-weight: 600 !important;
   text-align: left !important;
   white-space: nowrap !important;
@@ -65,6 +65,7 @@
 
 .login-multilingual-accrodin svg {
   color: #000 !important;
+  font-size: 1.2rem !important;
 }
 
 .MuiAccordionSummary-content {
@@ -81,17 +82,17 @@
   overflow-wrap: break-word;
   color: rgba(0, 0, 0, 1) !important;
   font-family: "VT323" !important;
-  font-size: 18px !important;
+  font-size: 1.125rem !important;
   font-weight: 600 !important;
   text-align: left !important;
   white-space: nowrap !important;
-  margin-left: 16px !important;
+  margin-left: 14.5% !important;
   padding: 0 !important;
   text-transform: none !important;
 }
 
 .active {
-  margin-left: 12px;
+  margin-left: 16%;
 }
 
 .login-app-icon-container {
@@ -100,12 +101,12 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  margin-top: 75px;
+  margin-top: 21%;
 }
 
 .login-app-icon {
-  width: 75px;
-  height: 75px;
+  width: 14%;
+  height: 14%;
 }
 
 .login-header-container {
@@ -122,14 +123,14 @@
   flex-direction: row;
   text-align: center;
   justify-content: center;
-  margin-top: 30px;
+  margin-top: 8%;
 }
 
 .login-header-text {
   overflow-wrap: break-word;
   color: rgba(0, 0, 0, 1);
   font-family: "VT323";
-  font-size: 30px;
+  font-size: 1.875rem;
   font-weight: 600;
   text-align: center;
   white-space: nowrap;
@@ -144,7 +145,7 @@
   overflow-wrap: break-word;
   color: #431f81;
   font-family: "VT323";
-  font-size: 30px;
+  font-size: 1.875rem;
   font-weight: 600;
   text-align: center;
   white-space: nowrap;
@@ -176,7 +177,7 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  margin-top: 40px;
+  margin-top: 10%;
 }
 
 .login-email-input-container {
@@ -201,7 +202,7 @@
 }
 
 .login-password-input-container {
-  margin-top: 15px !important;
+  margin-top: 5% !important;
   min-width: 85% !important;
   background-color: #ffffff;
   border-radius: 10px !important;
@@ -225,7 +226,7 @@
   width: 100%;
   display: flex;
   justify-content: flex-end;
-  margin-top: 15px;
+  margin-top: 4.5%;
   margin-right: 15%;
 }
 
@@ -233,7 +234,7 @@
   padding: 0 !important;
   overflow-wrap: break-word !important;
   color: #8f8f8f !important;
-  font-size: 12px !important;
+  font-size: 0.75rem !important;
   font-family: "Gilroy" !important;
   white-space: nowrap !important;
   letter-spacing: 1px !important;
@@ -242,11 +243,11 @@
 }
 
 .login-sign-in-button {
-  margin-top: 30px !important;
+  margin-top: 8.5% !important;
   background-color: #4461F2 !important;
   overflow-wrap: break-word !important;
   color: #FFFFFF !important;
-  font-size: 15px !important;
+  font-size: 0.938rem !important;
   font-family: "Gilroy" !important;
   white-space: nowrap !important;
   letter-spacing: 2px !important;
@@ -259,10 +260,10 @@
 }
 
 .login-continue-with-text {
-  margin-top: 40px;
+  margin-top: 11.5%;
   overflow-wrap: break-word;
   color: #8f8f8f;
-  font-size: 12px;
+  font-size: 0.75rem;
   font-family: "Gilroy";
   white-space: nowrap;
   letter-spacing: 1px;
@@ -270,7 +271,7 @@
 }
 
 .login-other-sign-in-container {
-  margin-top: 35px;
+  margin-top: 11%;
   width: 85%;
   height: auto;
   display: flex;
@@ -324,13 +325,13 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  margin-top: 80px;
+  margin-top: 15%;
 }
 
 .login-bottom-upper-text {
   overflow-wrap: break-word;
   color: #000000;
-  font-size: 16px;
+  font-size: 1rem;
   font-family: "Gilroy";
   white-space: nowrap;
   letter-spacing: 1px;
@@ -340,22 +341,39 @@
 .login-bottom-lower-text {
   overflow-wrap: break-word;
   color: #000000;
-  font-size: 16px;
+  font-size: 1rem;
   font-family: "Gilroy";
   white-space: nowrap;
   letter-spacing: 1px;
   font-weight: 600;
-  margin-top: 8px;
+  margin-top: 3%;
 }
 
 .login-register-button {
   overflow-wrap: break-word !important;
   color: #4461F2 !important;
-  font-size: 16px !important;
+  font-size: 1rem !important;
   font-family: "Gilroy" !important;
   white-space: nowrap !important;
   letter-spacing: 1px !important;
   font-weight: bold !important;
   text-transform: none !important;
   padding: 0 !important;
+}
+
+@media screen and (max-height: 895px) {
+  .login-screen {
+    height: 100%;
+    overflow: auto;
+  }
+
+  .fuzzy-glass-container { 
+    margin-top: 5%;
+    margin-bottom: 10%;
+    height: auto;
+  }
+
+  .login-bottom-container {
+    margin-bottom: 16%;
+  }
 }
