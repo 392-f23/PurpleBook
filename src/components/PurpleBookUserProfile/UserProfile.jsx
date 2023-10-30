@@ -7,34 +7,35 @@ const UpcomingBookings = ({ user, data }) => {
   return userBookings;
 };
 
-const UserProfile = ({ data, profile }) => {
-  const user = profile.user;
-  const upcomingBookings = UpcomingBookings(user, data);
+const UserProfile = ({ data }) => {
+  const user = data.user;
+  const upcomingBookings = UpcomingBookings({ user, data });
 
   const [selectedBooking, setSelectedBooking] = useState(null);
   const [modalIsOpen, setModalIsOpen] = useState(false);
-  const [selectedAction, setSelectedAction] = useState(null);
 
-  const openModal = (booking, action) => {
+  const openModal = (booking) => {
     setSelectedBooking(booking);
-    setSelectedAction(action);
     setModalIsOpen(true);
   };
 
   const closeModal = () => {
+    setSelectedBooking(null);
     setModalIsOpen(false);
   };
 
   const handleDeleteBooking = (booking) => {
+    // change to delete data from database
     data.bookings = data.bookings.filter(
       (currentBooking) => currentBooking.id !== booking.id
     );
-    alert(`Booking with ID ${booking.name} has been deleted.`);
+
+    alert(`Booking ${booking.name} has been deleted.`);
+    closeModal();
   };
 
-  const handleShareBooking = (booking) => {
-    openModal(booking, "share");
-    alert(`Booking ${booking.name} has been shared.`);
+  const handleBooking = (booking) => {
+    openModal(booking);
   };
 
   const handleSendEmail = (booking) => {
@@ -42,7 +43,6 @@ const UserProfile = ({ data, profile }) => {
     const body = `Court: ${booking.courtName}%0ALocation: ${booking.location}%0ADate: ${booking.date}%0ATime: ${booking.time}`;
 
     window.location.href = `mailto:?subject=${subject}&body=${body}`;
-    alert(`Booking ${booking.courtName} details have been shared via email.`);
     closeModal();
   };
 
@@ -51,7 +51,6 @@ const UserProfile = ({ data, profile }) => {
     const message = `Court: ${booking.courtName}%0ALocation: ${booking.location}%0ADate: ${booking.date}%0ATime: ${booking.time}`;
 
     window.location.href = `sms:?&body=${message}`;
-    alert(`Booking ${booking.courtName} details have been shared via SMS.`);
     closeModal();
   };
 
@@ -76,23 +75,18 @@ const UserProfile = ({ data, profile }) => {
             contentLabel="Booking Actions"
           >
             <h2>How would you like to proceed?</h2>
-            {selectedAction === "share" && (
-              <div>
-                <button onClick={() => handleSendEmail(selectedBooking)}>
-                  Share via Email
-                </button>
-                <button onClick={() => handleSendSMS(selectedBooking)}>
-                  Share via SMS
-                </button>
-              </div>
-            )}
-            {selectedAction === "delete" && (
-              <div>
-                <button onClick={() => handleDeleteBooking(selectedBooking)}>
-                  Delete
-                </button>
-              </div>
-            )}
+            <div>
+              <button onClick={() => handleSendEmail(selectedBooking)}>
+                Share via Email
+              </button>
+              <button onClick={() => handleSendSMS(selectedBooking)}>
+                Share via SMS
+              </button>
+              <button onClick={() => handleDeleteBooking(selectedBooking)}>
+                Delete
+              </button>
+              <button onClick={closeModal}>Cancel</button>
+            </div>
           </Modal>
         )}
         {upcomingBookings.length > 0 ? (
@@ -106,9 +100,7 @@ const UserProfile = ({ data, profile }) => {
                 <br />
                 <strong>Time: {booking.time}</strong>
                 <br />
-                <button onClick={() => handleShareBooking(booking)}>
-                  Share
-                </button>
+                <button onClick={() => handleBooking(booking)}>...</button>
                 {selectedBooking && selectedBooking.id === booking.id && (
                   <div>
                     {selectedBooking ? (
