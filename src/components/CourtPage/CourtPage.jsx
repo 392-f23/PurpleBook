@@ -23,7 +23,7 @@ const CourtPage = () => {
                     <Dropdown.Item eventKey="Wednesday">Wednesday</Dropdown.Item>
                     <Dropdown.Item eventKey="Thursday">Thursday</Dropdown.Item>
                     <Dropdown.Item eventKey="Friday">Friday</Dropdown.Item>
-                    <Dropdown.Item eventKey="Satruday">Satruday</Dropdown.Item>
+                    <Dropdown.Item eventKey="Saturday">Satruday</Dropdown.Item>
                     <Dropdown.Item eventKey="Sunday">Sunday</Dropdown.Item>
                 </Dropdown.Menu>
             </Dropdown>

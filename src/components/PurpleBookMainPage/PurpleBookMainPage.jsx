@@ -22,8 +22,6 @@ const PurpleBookMainPage = () => {
     const handleSelectCourt = (eventKey, event) => {
         setSelectedCourt(eventKey);  
     };
-
-    console.log(data.sport[selectedSport][selectedCourt]);
     return (
         <div>
             <h1>You have selected: {selectedSport}</h1>
