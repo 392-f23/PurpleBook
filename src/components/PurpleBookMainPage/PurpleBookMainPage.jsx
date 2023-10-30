@@ -1,10 +1,14 @@
-import { firebaseSignOut } from "../../utilities/firebaseUtils";
+import { firebaseSignOut, useProfile } from "../../utilities/firebaseUtils";
 
 const PurpleBookMainPage = ({ setIsUserLoggedIn }) => {
   const handleFirebaseLogout = () => {
     setIsUserLoggedIn(false);
     firebaseSignOut();
   };
+  
+  const [user, isAdmin] = useProfile();
+  console.log(user)
+  console.log(isAdmin)
 
   return (
     <div className="main">
