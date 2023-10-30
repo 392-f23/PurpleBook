@@ -1,4 +1,6 @@
 import { useState, useEffect, useRef } from "react";
+import { signInWithGoogle, useAuthState, firebaseSignOut } from "../../utilities/firebaseUtils";
+import { useNavigate } from "react-router-dom";
 import Accordion from "@mui/material/Accordion";
 import AccordionSummary from "@mui/material/AccordionSummary";
 import AccordionDetails from "@mui/material/AccordionDetails";
@@ -14,7 +16,7 @@ import Visibility from "@mui/icons-material/Visibility";
 import VisibilityOff from "@mui/icons-material/VisibilityOff";
 import "./PurpleBookLogin.less";
 
-const PurpleBookLogin = () => {
+const PurpleBookLogin = ({setIsUserLoggedIn}) => {
   const [showPassword, setShowPassword] = useState(false);
   const handleClickShowPassword = () => setShowPassword((show) => !show);
   const handleMouseDownPassword = (event) => {
@@ -89,6 +91,16 @@ const PurpleBookLogin = () => {
 
     initializeTypingEffect(text, words);
   }, []);
+
+  const [user] = useAuthState();
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    if (user) {
+      setIsUserLoggedIn(true)
+      navigate("/home");
+    }
+  }, [user, navigate]);
 
   return (
     <div className="login-screen">
@@ -191,7 +203,11 @@ const PurpleBookLogin = () => {
           <span className="login-continue-with-text">Or continue with</span>
           {/* other sign in methods */}
           <div className="login-other-sign-in-container">
-            <Button variant="contained" className="login-google-sign-in-button">
+            <Button
+              variant="contained"
+              className="login-google-sign-in-button"
+              onClick={signInWithGoogle}
+            >
               <img
                 src="https://raw.githubusercontent.com/Hongda-OSU/PicGo-2.3.1/master/imgGoogle.svg"
                 className="login-google-icon"
