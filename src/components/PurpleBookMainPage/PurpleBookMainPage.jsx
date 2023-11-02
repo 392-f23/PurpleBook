@@ -1,13 +1,9 @@
 import { firebaseSignOut, useProfile } from "../../utilities/firebaseUtils";
-import { useState } from "react";
-import { useNavigate } from "react-router-dom";
-import data from "../../utilities/temp.json";
 import PurpleBookButtomNav from "../PurpleBookButtomNav/PurpleBookButtomNav";
+import data from "../../utilities/temp.json";
 import "./PurpleBookMainPage.less";
 
 const PurpleBookMainPage = ({ setIsUserLoggedIn }) => {
-  const navigate = useNavigate();
-
   const [user, isAdmin] = useProfile();
   console.log(user);
   console.log(isAdmin);

@@ -1,16 +1,18 @@
 import React, { useState } from "react";
 import Modal from "react-modal";
 import "./UserProfile.less";
+//import data from "../../utilities/temp.json"; 
+import data2 from "./UserProfileTest.json";
 
-const UpcomingBookings = ({ user, data }) => {
-  const name = user.displayName;
-  const userBookings = data.bookings.filter((booking) => booking.name === name);
+const UpcomingBookings = ({user, data }) => {
+  const bookings = data2.bookings;
+  const userBookings = bookings.filter((booking) => booking.name === user);
   return userBookings;
 };
 
-const UserProfile = ({ data }) => {
-  const user = data.user;
-  const upcomingBookings = UpcomingBookings({ user, data });
+const UserProfile = ({ }) => {
+  const userName =  data2.user.name;
+  const upcomingBookings = UpcomingBookings({ userName, data2 });
 
   const [selectedBooking, setSelectedBooking] = useState(null);
   const [modalIsOpen, setModalIsOpen] = useState(false);
@@ -27,7 +29,7 @@ const UserProfile = ({ data }) => {
 
   const handleDeleteBooking = (booking) => {
     // change to delete data from database
-    data.bookings = data.bookings.filter(
+    data2.bookings = data2.bookings.filter(
       (currentBooking) => currentBooking.id !== booking.id
     );
 
@@ -60,10 +62,10 @@ const UserProfile = ({ data }) => {
       <div className="user-info">
         <h2>User Profile</h2>
         <div>
-          <strong>Name: {user.name}</strong>
+          <strong>Name: {data2.user.name}</strong>
         </div>
         <div>
-          <strong>Email: {user.email}</strong>
+          <strong>Email: {data2.user.email}</strong>
         </div>
         {/* more information?? */}
       </div>
