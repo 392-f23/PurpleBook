@@ -1,5 +1,11 @@
 import { useState, useEffect, useRef } from "react";
-import { signInWithGoogle, useAuthState, firebaseSignOut } from "../../utilities/firebaseUtils";
+import {
+  signInWithGitHub,
+  signInWithApple,
+  signInWithGoogle,
+  useAuthState,
+  firebaseSignOut,
+} from "../../utilities/firebaseUtils";
 import { useNavigate } from "react-router-dom";
 import Accordion from "@mui/material/Accordion";
 import AccordionSummary from "@mui/material/AccordionSummary";
@@ -16,7 +22,14 @@ import Visibility from "@mui/icons-material/Visibility";
 import VisibilityOff from "@mui/icons-material/VisibilityOff";
 import "./PurpleBookLogin.less";
 
-const PurpleBookLogin = ({setIsUserLoggedIn}) => {
+import { getFirebase } from "../../utilities/firebase";
+import {
+  getAuth,
+  createUserWithEmailAndPassword,
+  signInWithEmailAndPassword,
+} from "firebase/auth";
+
+const PurpleBookLogin = ({ setIsUserLoggedIn }) => {
   const [showPassword, setShowPassword] = useState(false);
   const handleClickShowPassword = () => setShowPassword((show) => !show);
   const handleMouseDownPassword = (event) => {
@@ -95,9 +108,41 @@ const PurpleBookLogin = ({setIsUserLoggedIn}) => {
   const [user] = useAuthState();
   const navigate = useNavigate();
 
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+
+  const handleSignInWithEmailAndPassword = () => {
+    const firebase = getFirebase();
+    const auth = getAuth(firebase);
+
+    signInWithEmailAndPassword(auth, email, password)
+      .then((userCredential) => {
+        // Sign-in successful
+        const user = userCredential.user;
+        setIsUserLoggedIn(true);
+        navigate("/home");
+      })
+      .catch((error) => {
+        console.error("Sign-in error:", error);
+      });
+  };
+  const handleCreateUserWithEmailAndPassword = () => {
+    const firebase = getFirebase();
+    const auth = getAuth(firebase);
+
+    createUserWithEmailAndPassword(auth, email, password)
+      .then((userCredential) => {
+        // The user is created successfully
+        const user = userCredential.user;
+      })
+      .catch((error) => {
+        console.error("User creation error:", error);
+      });
+  };
+
   useEffect(() => {
     if (user) {
-      setIsUserLoggedIn(true)
+      setIsUserLoggedIn(true);
       navigate("/home");
     }
   }, [user, navigate]);
@@ -154,6 +199,8 @@ const PurpleBookLogin = ({setIsUserLoggedIn}) => {
               className="login-email-input"
               type={"text"}
               placeholder={"Enter Email"}
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
               sx={{
                 "& fieldset": { border: "none" },
               }}
@@ -172,6 +219,13 @@ const PurpleBookLogin = ({setIsUserLoggedIn}) => {
               className="login-password-input"
               type={showPassword ? "text" : "password"}
               placeholder={"Enter Password"}
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              onKeyDown={(e) => {
+                if (e.key === "Enter") {
+                  handleSignInWithEmailAndPassword();
+                }
+              }}
               sx={{
                 "& fieldset": { border: "none" },
               }}
@@ -196,9 +250,16 @@ const PurpleBookLogin = ({setIsUserLoggedIn}) => {
             </Button>
           </div>
           {/* sign in button */}
-          <Button variant="contained" className="login-sign-in-button">
+          <Button
+            variant="contained"
+            className="login-sign-in-button"
+            onClick={handleSignInWithEmailAndPassword}
+          >
             Sign In
           </Button>
+          <Button className="login-register-button" disableRipple onClick={handleCreateUserWithEmailAndPassword}>
+              Register
+            </Button>
           {/* continue with */}
           <span className="login-continue-with-text">Or continue with</span>
           {/* other sign in methods */}
@@ -213,31 +274,27 @@ const PurpleBookLogin = ({setIsUserLoggedIn}) => {
                 className="login-google-icon"
               ></img>
             </Button>
-            <Button variant="contained" className="login-apple-sign-in-button">
+            <Button
+              variant="contained"
+              className="login-apple-sign-in-button"
+              onClick={signInWithApple}
+            >
               <img
                 src="https://raw.githubusercontent.com/Hongda-OSU/PicGo-2.3.1/master/imgApple.svg"
                 className="login-apple-icon"
               ></img>
             </Button>
-            <Button variant="contained" className="login-github-sign-in-button">
+            <Button
+              variant="contained"
+              className="login-github-sign-in-button"
+              onClick={signInWithGitHub}
+            >
               <img
                 src="https://raw.githubusercontent.com/Hongda-OSU/PicGo-2.3.1/master/imgGithub.svg"
                 className="login-github-icon"
               ></img>
             </Button>
           </div>
-        </div>
-
-        <div className="login-bottom-container">
-          <span className="login-bottom-upper-text">
-            If you don't have an account
-          </span>
-          <span className="login-bottom-lower-text">
-            you can{" "}
-            <Button className="login-register-button" disableRipple>
-              Register here!
-            </Button>
-          </span>
         </div>
       </section>
     </div>
