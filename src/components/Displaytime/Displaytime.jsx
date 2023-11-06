@@ -1,6 +1,7 @@
 import ListGroup from 'react-bootstrap/ListGroup';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
+
 const Displaytime = (props) => {
     const {selectedDay, dayInfo} = props;
 
@@ -8,7 +9,10 @@ const Displaytime = (props) => {
         alert(`You have selected: ${time}`);
     };
 
+
+
     return (
+      <div>
         <ListGroup>
             {dayInfo.length === 0 ? (
                 <p>This court is not available on {selectedDay}. </p>
@@ -24,6 +28,8 @@ const Displaytime = (props) => {
                 </>
               )}
         </ListGroup>
+        
+      </div>
     );
 
 }

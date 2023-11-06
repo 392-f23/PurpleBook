@@ -3,6 +3,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import { useLocation } from 'react-router-dom';
 import { useState } from 'react';
 import Displaytime from '../Displaytime/Displaytime';
+import { useNavigate } from 'react-router-dom';
 
 const CourtPage = () => {
     const location = useLocation();
@@ -10,6 +11,11 @@ const CourtPage = () => {
     const [selectedDay, setSelectedDay] = useState();
     const handleSelectDay = (eventKey, event) => {
         setSelectedDay(eventKey);  
+    };
+    const navigate = useNavigate();
+
+    const handleButtonClick = () => {
+        navigate("/home"); 
     };
     return (
         <div>
@@ -23,11 +29,12 @@ const CourtPage = () => {
                     <Dropdown.Item eventKey="Wednesday">Wednesday</Dropdown.Item>
                     <Dropdown.Item eventKey="Thursday">Thursday</Dropdown.Item>
                     <Dropdown.Item eventKey="Friday">Friday</Dropdown.Item>
-                    <Dropdown.Item eventKey="Saturday">Satruday</Dropdown.Item>
+                    <Dropdown.Item eventKey="Saturday">Saturday</Dropdown.Item>
                     <Dropdown.Item eventKey="Sunday">Sunday</Dropdown.Item>
                 </Dropdown.Menu>
             </Dropdown>
             {selectedDay === undefined ? <p>No data</p> : <Displaytime selectedDay={selectedDay} dayInfo={receivedData[selectedDay]} />}
+            <button onClick={handleButtonClick}>Go to main page</button>
         </div>
     )
 }

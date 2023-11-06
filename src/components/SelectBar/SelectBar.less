@@ -1,0 +1,135 @@
+@font-face {
+    font-family: "Dosis";
+    src: url("https://cdn.jsdelivr.net/gh/Hongda-OSU/PicGo/image/Dosis-VariableFont_wght.ttf");
+    font-display: swap;
+  }
+  
+  .selectbar-selectbar {
+    width: auto;
+    height: auto;
+    margin: 20px 10px 20px 20px;
+    display: flex;
+    flex-wrap: nowrap;
+    flex-direction: column;
+    justify-content: flex-start;
+    flex: 1;
+    max-height: 85vh;
+    min-width: 320px;
+    overflow-y: auto;
+  }
+  
+  @media (max-width: 1200px) {
+    .selectbar-selectbar {
+      display: block;
+    }
+  }
+  
+  .selectbar-selectbar-search-container {
+    width: auto;
+    height: auto;
+    padding: 20px 10px 10px 30px;
+    display: flex;
+    justify-content: flex-start;
+    align-items: flex-start;
+  }
+  
+  .selectbar-selectbar-search {
+    min-width: 260px !important;
+  }
+  
+  .selectbar-selectbar-search input {
+    overflow-wrap: break-word;
+    color: rgba(0, 0, 0, 1) !important;
+    font-family: "Dosis" !important;
+    font-size: 18px !important;
+    font-weight: 600 !important;
+    text-align: left !important;
+    white-space: nowrap !important;
+  }
+  
+  .selectbar-selectbar-filter-container {
+    width: auto;
+    height: auto;
+    padding: 20px 0 10px 30px;
+    display: flex;
+    justify-content: flex-start;
+    align-items: flex-start;
+  }
+  
+  .selectbar-selectbar-filter-container p {
+    overflow-wrap: break-word;
+    color: rgba(0, 0, 0, 1) !important;
+    font-family: "Dosis" !important;
+    font-size: 16px !important;
+    font-weight: 600 !important;
+    text-align: left !important;
+    white-space: nowrap !important;
+  }
+  
+  .selectbar-selectbar-accrodin-container {
+    width: auto;
+    height: auto;
+    padding: 0 10px 10px 30px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-start;
+  }
+  
+  .selectbar-selectbar-accrodin p {
+    overflow-wrap: break-word;
+    color: rgba(0, 0, 0, 1) !important;
+    font-family: "Dosis" !important;
+    font-size: 16px !important;
+    font-weight: 600 !important;
+    text-align: left !important;
+    white-space: nowrap !important;
+  }
+  
+  .selectbar-selectbar-accrodin-checkbox-container {
+    display: flex;
+    flex-direction: column;
+    min-width: 228px;
+  }
+  
+  .selectbar-selectbar-accrodin-checkbox-container span {
+    overflow-wrap: break-word;
+    color: rgba(0, 0, 0, 1) !important;
+    font-family: "Dosis" !important;
+    font-size: 14px !important;
+    font-weight: 400 !important;
+    text-align: left !important;
+    white-space: nowrap !important;
+  }
+  
+  .selectbar-selectbar-publish-selectbar {
+    width: auto;
+    height: auto;
+    padding: 10px 5px 5px 60px;
+    display: flex;
+    justify-content: flex-start;
+    margin-top: 245px;
+    margin-bottom: 10px;
+  }
+  
+  .selectbar-selectbar-publish-selectbar-button {
+    overflow-wrap: break-word;
+    color: rgba(0, 0, 0, 1) !important;
+    font-family: "Dosis" !important;
+    font-size: 18px !important;
+    font-weight: 600 !important;
+    text-align: center;
+    white-space: wrap;
+    padding: 7px 10px 7px 10px !important;
+    border: 3px solid black !important;
+  }
+  
+  .selectbar-selectbar-publish-selectbar-button:hover {
+    transform: scale(1.015);
+    filter: brightness(1.05);
+    ::before {
+      filter: brightness(0.5);
+      top: -100%;
+      left: 200%;
+    }
+  }

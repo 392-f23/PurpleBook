@@ -2,16 +2,19 @@ import { firebaseSignOut, useProfile } from "../../utilities/firebaseUtils";
 import PurpleBookButtomNav from "../PurpleBookButtomNav/PurpleBookButtomNav";
 import data from "../../utilities/temp.json";
 import "./PurpleBookMainPage.less";
+import CourtPage from "../CourtPage/CourtPage";
+import SelectBar from "../SelectBar/SelectBar"
 
 const PurpleBookMainPage = ({ setIsUserLoggedIn }) => {
   const [user, isAdmin] = useProfile();
-  console.log(user);
-  console.log(isAdmin);
+  //console.log(user);
+  //console.log(isAdmin);
 
   const handleFirebaseLogout = () => {
     setIsUserLoggedIn(false);
     firebaseSignOut();
   };
+  
 
   return (
     <div className="main-page">
@@ -22,8 +25,7 @@ const PurpleBookMainPage = ({ setIsUserLoggedIn }) => {
         </p>
       </div>
       <div className="main-page-content">
-
-        
+        <SelectBar />
       </div>
       <button onClick={handleFirebaseLogout}>Sign Out</button>
       <PurpleBookButtomNav />
