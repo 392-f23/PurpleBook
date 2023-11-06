@@ -95,7 +95,6 @@ const SelectBar = () => {
     const navigate = useNavigate();
 
     const handleButtonClick = () => {
-        // 假设只有一个 court 被选中
         const selectedCourtName = Object.keys(selectedCourts).find(courtName => selectedCourts[courtName]);
         const selectedSport = Object.keys(selectedData).find(sport => selectedData[sport]);
     
