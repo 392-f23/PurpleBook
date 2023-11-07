@@ -1,5 +1,5 @@
 import { useState, useEffect, useRef } from "react";
-import { signInWithGoogle, useAuthState, firebaseSignOut } from "../../utilities/firebaseUtils";
+import { signInWithApple, signInWithGitHub, signInWithGoogle, useAuthState, firebaseSignOut } from "../../utilities/firebaseUtils";
 import { useNavigate } from "react-router-dom";
 import Accordion from "@mui/material/Accordion";
 import AccordionSummary from "@mui/material/AccordionSummary";
@@ -213,13 +213,13 @@ const PurpleBookLogin = ({setIsUserLoggedIn}) => {
                 className="login-google-icon"
               ></img>
             </Button>
-            <Button variant="contained" className="login-apple-sign-in-button">
+            <Button variant="contained" className="login-apple-sign-in-button" onClick={signInWithApple}>
               <img
                 src="https://raw.githubusercontent.com/Hongda-OSU/PicGo-2.3.1/master/imgApple.svg"
-                className="login-apple-icon"
+                className="login-apple-icon" 
               ></img>
             </Button>
-            <Button variant="contained" className="login-github-sign-in-button">
+            <Button variant="contained" className="login-github-sign-in-button" onClick={signInWithGitHub}>
               <img
                 src="https://raw.githubusercontent.com/Hongda-OSU/PicGo-2.3.1/master/imgGithub.svg"
                 className="login-github-icon"

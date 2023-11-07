@@ -1,8 +1,8 @@
 {
     "user": {
-      "name": "John Doe",
-      "email": "johndoe@example.com",
-      "displayName": "JohnD"
+      "name": "Adrian Hoffer",
+      "email": "adrianhoffer2024@u.northwestern.edu",
+      "displayName": "Adrian H"
     },
     "bookings": [
       {
@@ -11,7 +11,8 @@
         "courtName": "Court A",
         "location": "Location X",
         "date": "2023-11-01",
-        "time": "10:00 AM"
+        "time": "10:00 AM-11:00 AM",
+        "email": "adrianhoffer2024@u.northwestern.edu"
       },
       {
         "id": 2,
@@ -19,7 +20,8 @@
         "courtName": "Court B",
         "location": "Location Y",
         "date": "2023-11-03",
-        "time": "2:00 PM"
+        "time": "2:00 PM-3:00 PM",
+        "email": "adrianhoffer2024@u.northwestern.edu"
       },
       {
         "id": 3,
@@ -27,7 +29,35 @@
         "courtName": "Court C",
         "location": "Location Z",
         "date": "2023-11-05",
-        "time": "3:30 PM"
+        "time": "3:30 PM-4:30 PM",
+        "email": "adrianhoffer2024@u.northwestern.edu"
+      },
+      {
+        "id": 4,
+        "name": "AliceC",
+        "courtName": "Court D",
+        "location": "Location W",
+        "date": "2023-11-07",
+        "time": "1:00 PM-2:00 PM",
+        "email": "adrianhoffer2024@u.northwestern.edu"
+      },
+      {
+        "id": 5,
+        "name": "AliceC",
+        "courtName": "Court E",
+        "location": "Location V",
+        "date": "2023-11-09",
+        "time": "11:30 AM-12:30 PM",
+        "email": "adrianhoffer2024@u.northwestern.edu"
+      },
+      {
+        "id": 6,
+        "name": "BobS",
+        "courtName": "Court F",
+        "location": "Location U",
+        "date": "2023-11-12",
+        "time": "9:00 AM-10:00 AM",
+        "email": "adrianhoffer2024@u.northwestern.edu"
       }
     ]
   }

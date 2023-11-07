@@ -3,6 +3,7 @@ import { onValue, ref, update } from "firebase/database";
 import {
   getAuth,
   GoogleAuthProvider,
+  GithubAuthProvider, OAuthProvider ,
   onAuthStateChanged,
   signInWithPopup,
   signOut,
@@ -63,6 +64,16 @@ export const useDbUpdate = (path) => {
 export const signInWithGoogle = () => {
   const firebase = getFirebase();
   signInWithPopup(getAuth(firebase), new GoogleAuthProvider());
+};
+
+export const signInWithGitHub = async () => {
+  const firebase = getFirebase();
+  signInWithPopup(getAuth(firebase), new GithubAuthProvider);
+};
+
+export const signInWithApple = async () => {
+  const firebase = getFirebase();
+  signInWithPopup(getAuth(firebase), new OAuthProvider('apple.com'));
 };
 
 export const firebaseSignOut = () => {
