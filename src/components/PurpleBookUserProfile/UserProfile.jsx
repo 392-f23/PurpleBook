@@ -1,21 +1,38 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Modal from "react-modal";
 import "./UserProfile.less";
+
+import Alert from '@mui/material/Alert';
+import AlertTitle from '@mui/material/AlertTitle';
+import PurpleBookButtomNav from "../PurpleBookButtomNav/PurpleBookButtomNav";
+import {useAuthState, firebaseSignOut } from "../../utilities/firebaseUtils";
 //import data from "../../utilities/temp.json"; 
 import data2 from "./UserProfileTest.json";
 
-const UpcomingBookings = ({user, data }) => {
+const UpcomingBookings = (user) => {
   const bookings = data2.bookings;
-  const userBookings = bookings.filter((booking) => booking.name === user);
+  const userBookings = bookings.filter((booking) => booking.email === user.email);
   return userBookings;
 };
 
-const UserProfile = ({ }) => {
-  const userName =  data2.user.name;
-  const upcomingBookings = UpcomingBookings({ userName, data2 });
-
+const UserProfile = ({setIsUserLoggedIn}) => {
+  //const navigate = useNavigate();
+  //const [user, setUser] = useAuthState();
+  const user = data2.user;
+  console.log(user);
+  /*useEffect(() => {
+    if (user) {
+      setIsUserLoggedIn(true)
+    }
+  }, [user]);
+  */
+  
+  const userName =  data2.user.displayName;
+  const upcomingBookings = UpcomingBookings(user);
+  console.log(upcomingBookings);
   const [selectedBooking, setSelectedBooking] = useState(null);
   const [modalIsOpen, setModalIsOpen] = useState(false);
+  const [isBookingDeleted, setBookingDeleted] = useState(false);
 
   const openModal = (booking) => {
     setSelectedBooking(booking);
@@ -32,8 +49,10 @@ const UserProfile = ({ }) => {
     data2.bookings = data2.bookings.filter(
       (currentBooking) => currentBooking.id !== booking.id
     );
-
-    alert(`Booking ${booking.name} has been deleted.`);
+    setBookingDeleted(true);
+    setTimeout(() => {
+      setBookingDeleted(false);
+    }, 3000);
     closeModal();
   };
 
@@ -58,24 +77,30 @@ const UserProfile = ({ }) => {
   };
 
   return (
+    <div className="background-container">
     <div className="profile-container">
       <div className="user-info">
-        <h2>User Profile</h2>
-        <div>
-          <strong>Name: {data2.user.name}</strong>
-        </div>
-        <div>
-          <strong>Email: {data2.user.email}</strong>
+        <h2>{user.displayName}</h2>
+        
+        <div className="top-text">
+          <p> {user.email}</p>
         </div>
         {/* more information?? */}
       </div>
+      <h3>Upcoming Reservations</h3>
       <div className="upcoming-bookings">
-        <h2>Upcoming Reservations</h2>
+      {isBookingDeleted && (
+          <Alert severity="info">
+            <AlertTitle>Success</AlertTitle>
+            {`Booking ${selectedBooking} has been deleted.`}
+          </Alert>
+        )}        
         {selectedBooking && (
           <Modal
             isOpen={modalIsOpen}
             onRequestClose={closeModal}
             contentLabel="Booking Actions"
+            className="ReactModal__Content"
           >
             <h2>How would you like to proceed?</h2>
             <div>
@@ -85,7 +110,9 @@ const UserProfile = ({ }) => {
               <button onClick={() => handleSendSMS(selectedBooking)}>
                 Share via SMS
               </button>
-              <button onClick={() => handleDeleteBooking(selectedBooking)}>
+              <button onClick={() => {
+                handleDeleteBooking(selectedBooking)}
+                }>
                 Delete
               </button>
               <button onClick={closeModal}>Cancel</button>
@@ -93,40 +120,20 @@ const UserProfile = ({ }) => {
           </Modal>
         )}
         {upcomingBookings.length > 0 ? (
-          <ul>
+          <ul className>
             {upcomingBookings.map((booking) => (
               <li key={booking.id}>
-                <strong>Court: {booking.courtName}</strong>
-                <strong>Location: {booking.location}</strong>
+                Court: <strong>{booking.courtName}</strong>
                 <br />
-                <strong>Date: {booking.date}</strong>
+                Location: <strong>{booking.location}</strong>
                 <br />
-                <strong>Time: {booking.time}</strong>
+                Date: <strong>{booking.date}</strong>
                 <br />
-                <button onClick={() => handleBooking(booking)}>...</button>
-                {selectedBooking && selectedBooking.id === booking.id && (
-                  <div>
-                    {selectedBooking ? (
-                      <div>
-                        <button
-                          onClick={() => handleSendEmail(selectedBooking)}
-                        >
-                          Share via Email
-                        </button>
-                        <button onClick={() => handleSendSMS(selectedBooking)}>
-                          Share via SMS
-                        </button>
-                        <button
-                          onClick={() =>
-                            handleDeleteBooking(selectedBooking.id)
-                          }
-                        >
-                          Delete
-                        </button>
-                      </div>
-                    ) : null}
-                  </div>
-                )}
+                Time: <strong>{booking.time}</strong>
+                <br />
+                <div className="button-cont">
+                <button className="handle-book" onClick={() => handleBooking(booking)}> Edit</button>
+                </div>
               </li>
             ))}
           </ul>
@@ -134,6 +141,8 @@ const UserProfile = ({ }) => {
           <p>No upcoming reservations...</p>
         )}
       </div>
+    </div>
+    <PurpleBookButtomNav />
     </div>
   );
 };

@@ -50,7 +50,7 @@ const RouteDispatcher = () => {
           }
         />
         <Route path="/place/:courtId" element={<CourtPage />} />
-        <Route path="/profile" element={<UserProfile />} />
+        <Route path="/profile" element={<UserProfile setIsUserLoggedIn={setIsUserLoggedIn}/>} />
       </Routes>
     </BrowserRouter>
   );

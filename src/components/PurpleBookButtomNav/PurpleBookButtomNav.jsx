@@ -6,6 +6,7 @@ const PurpleBookButtomNav = () => {
   const location = useLocation();
   const isHome = location.pathname === "/home";
   const isMap = location.pathname === "/map";
+  const isProfile = location.pathname === "/profile";
 
   const handleHomeClick = () => {
     if (!isHome) {
@@ -19,7 +20,11 @@ const PurpleBookButtomNav = () => {
     }
   };
 
-  const handleUserProfileClick = () => {};
+  const handleUserProfileClick = () => {
+    if (!isProfile) {
+      navigate("/profile");
+    }
+  };
 
   return (
     <div className="bottom-nav">
