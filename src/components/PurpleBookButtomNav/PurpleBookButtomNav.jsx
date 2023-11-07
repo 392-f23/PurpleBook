@@ -5,6 +5,7 @@ const PurpleBookButtomNav = () => {
   const navigate = useNavigate();
   const location = useLocation();
   const isHome = location.pathname === "/home";
+  const isMap = location.pathname === "/map";
 
   const handleHomeClick = () => {
     if (!isHome) {
@@ -12,7 +13,11 @@ const PurpleBookButtomNav = () => {
     }
   };
 
-  const handleMapClick = () => {};
+  const handleMapClick = () => {
+    if (!isMap) {
+      navigate("/map");
+    }
+  };
 
   const handleUserProfileClick = () => {};
 
