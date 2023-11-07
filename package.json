@@ -24,10 +24,6 @@
     "react-bootstrap": "^2.9.1",
     "react-dom": "^18.2.0",
     "react-firebase-hooks": "^5.1.1",
-<<<<<<< HEAD
-=======
-    "react-leaflet": "^4.2.1",
->>>>>>> main
     "react-modal": "^3.16.1",
     "react-router-dom": "^6.17.0",
     "styled-components": "^6.1.0"

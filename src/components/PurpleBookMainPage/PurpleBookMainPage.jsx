@@ -7,13 +7,6 @@ import CourtPage from "../CourtPage/CourtPage";
 import SelectBar from "../SelectBar/SelectBar"
 
 const PurpleBookMainPage = ({ setIsUserLoggedIn }) => {
-<<<<<<< HEAD
-  const [user, isAdmin] = useProfile();
-  //console.log(user);
-  //console.log(isAdmin);
-
-=======
->>>>>>> main
   const handleFirebaseLogout = () => {
     setIsUserLoggedIn(false);
     firebaseSignOut();
