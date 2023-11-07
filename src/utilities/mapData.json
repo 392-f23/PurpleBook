@@ -1,0 +1,48 @@
+{
+  "Basketball": {
+    "Basketball Courts": {
+        "name": "Basketball Courts",
+        "location": [42.05988452745882, -87.67500952638953],
+        "address": "2379 Campus Dr, Evanston, IL 60208",
+        "image": "https://raw.githubusercontent.com/Hongda-OSU/PicGo-2.3.1/master/img2020-06-09.jpg"
+    },
+    "Orrington Court": {
+        "name": "Orrington Court",
+        "location": [42.05351971717059, -87.67935470495176],
+        "address": "Forest-Walker Undergraduate Housing Complex, Evanston, IL 60201",
+        "image": "https://raw.githubusercontent.com/Hongda-OSU/PicGo-2.3.1/master/img2019-05-04.jpg"
+    },
+    "Basketball Court": {
+        "name": "Basketball Court",
+        "location": [42.062697878155305, -87.6850134504479],
+        "address": "1028 Central St, Evanston, IL 60201",
+        "image": "https://raw.githubusercontent.com/Hongda-OSU/PicGo-2.3.1/master/imgthumbnail.jpg"
+    }
+  },
+  "Tennis": {
+    "Northwestern Tennis Courts": {
+        "name": "Northwestern Tennis Courts",
+        "location": [42.05983010467159, -87.67763201176675],
+        "address": "2169 Sheridan Rd, Evanston, IL 60201",
+        "image": "https://raw.githubusercontent.com/Hongda-OSU/PicGo-2.3.1/master/img2016-06-30.jpg"
+    },
+    "Foster Park Tennis Courts": {
+        "name": "Foster Park Tennis Courts",
+        "location": [42.05494363950424, -87.69448812706865],
+        "address": "Foster Park, 2000 Simpson St, Evanston, IL 60201",
+        "image": "https://raw.githubusercontent.com/Hongda-OSU/PicGo-2.3.1/master/imgthumbnail%20(1).jpg"
+    },
+    "Combe Tennis Center": {
+        "name": "Combe Tennis Center",
+        "location": [42.05974059623377, -87.67270455775629],
+        "address": "2311 Campus Dr, Evanston, IL 60208",
+        "image": "https://raw.githubusercontent.com/Hongda-OSU/PicGo-2.3.1/master/img2020-03-07.jpg"
+    },
+    "Mason Park Tennis Court": {
+        "name": "Mason Park Tennis Court",
+        "location": [42.04828929813034, -87.6965772147964],
+        "address": "1616 Dewey Ave, Evanston, IL 60201",
+        "image": "https://raw.githubusercontent.com/Hongda-OSU/PicGo-2.3.1/master/imgthumabnail.jpg"
+    }
+  }
+}
