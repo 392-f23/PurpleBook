@@ -11,7 +11,6 @@ import BasicDateCalendar from "../components/Calendar/Calendar";
 const RouteDispatcher = () => {
   const [user] = useAuthState();
   const [isUserLoggedIn, setIsUserLoggedIn] = useState(user != null);
-
   return (
     <BrowserRouter>
       <Routes>
@@ -54,6 +53,7 @@ const RouteDispatcher = () => {
             <ProtectedRoute
               isUserLoggedIn={isUserLoggedIn}
               setIsUserLoggedIn={setIsUserLoggedIn}
+              user = {user}
               component={UserProfile}
             />
           }

@@ -10,13 +10,12 @@ const PurpleBookMainPage = ({ setIsUserLoggedIn }) => {
   const [data, error] = useDbData("/");
   useEffect(() => {
     if (data) {
-     console.log(data)
+     console.log(data.history)
     }
     if (error) {
       console.error(error);
     }
   }, [data, error]);
-
   const handleFirebaseLogout = () => {
     setIsUserLoggedIn(false);
     firebaseSignOut();

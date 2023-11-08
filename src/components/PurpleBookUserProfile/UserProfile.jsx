@@ -6,32 +6,33 @@ import Alert from "@mui/material/Alert";
 import AlertTitle from "@mui/material/AlertTitle";
 import PurpleBookButtomNav from "../PurpleBookButtomNav/PurpleBookButtomNav";
 import { useAuthState, firebaseSignOut } from "../../utilities/firebaseUtils";
-//import data from "../../utilities/temp.json";
+import { useDbData } from "../../utilities/firebaseUtils";
 import data2 from "./UserProfileTest.json";
 
-const UpcomingBookings = (user) => {
-  const bookings = data2.bookings;
-  const userBookings = bookings.filter(
-    (booking) => booking.email === user.email
-  );
-  return userBookings;
-};
 
-const UserProfile = ({ setIsUserLoggedIn }) => {
+const UserProfile = ({ setIsUserLoggedIn , user }) => {
   //const navigate = useNavigate();
-  //const [user, setUser] = useAuthState();
-  const user = data2.user;
-  console.log(user);
-  /*useEffect(() => {
-    if (user) {
-      setIsUserLoggedIn(true)
+  
+  useEffect(() => {
+    if (user !== undefined && user !== null) {
+      setIsUserLoggedIn(true);
     }
   }, [user]);
-  */
-
-  const userName = data2.user.displayName;
-  const upcomingBookings = UpcomingBookings(user);
-  console.log(upcomingBookings);
+  console.log(user)
+  const userHistoryPath = user ? `/history/${user.displayName}` : null;
+  //const userHistoryPath = user ? `/history/Adrian H` : null;
+  const [data, error] = useDbData(userHistoryPath);
+  const [currBookings, setCurrBookings] = useState(null)
+  
+  useEffect(() => {
+    if (data) {
+     setCurrBookings(data.booking)
+    }
+    if (error) {
+      console.error(error);
+      console.log("no data")
+    }
+  }, [data, error]);
   const [selectedBooking, setSelectedBooking] = useState(null);
   const [modalIsOpen, setModalIsOpen] = useState(false);
   const [isBookingDeleted, setBookingDeleted] = useState(false);
@@ -57,6 +58,10 @@ const UserProfile = ({ setIsUserLoggedIn }) => {
     }, 3000);
     closeModal();
   };
+  const handleFirebaseLogout = () => {
+    setIsUserLoggedIn(false);
+    firebaseSignOut();
+  };
 
   const handleBooking = (booking) => {
     openModal(booking);
@@ -81,22 +86,18 @@ const UserProfile = ({ setIsUserLoggedIn }) => {
   return (
     <div className="background-container">
       <div className="profile-container">
+        
         <div className="user-info">
           <h2>{user.displayName}</h2>
 
           <div className="top-text">
             <p> {user.email}</p>
           </div>
-          {/* more information?? */}
+          <button onClick={handleFirebaseLogout}>Sign Out</button>
         </div>
         <h3>Upcoming Reservations</h3>
         <div className="upcoming-bookings">
-          {isBookingDeleted && (
-            <Alert severity="info">
-              <AlertTitle>Success</AlertTitle>
-              {`Booking ${selectedBooking} has been deleted.`}
-            </Alert>
-          )}
+          
           {selectedBooking && (
             <Modal
               isOpen={modalIsOpen}
@@ -123,9 +124,9 @@ const UserProfile = ({ setIsUserLoggedIn }) => {
               </div>
             </Modal>
           )}
-          {upcomingBookings.length > 0 ? (
+           {currBookings ? (
             <ul>
-              {upcomingBookings.map((booking) => (
+              {currBookings.map((booking) => (
                 <li key={booking.id}>
                   Court: <strong>{booking.courtName}</strong>
                   <br />
@@ -147,11 +148,17 @@ const UserProfile = ({ setIsUserLoggedIn }) => {
                 </li>
               ))}
             </ul>
-          ) : (
-            <p>No upcoming reservations...</p>
-          )}
+             ) : (
+              <p>No current Reservations</p>)}
+          
         </div>
       </div>
+      {isBookingDeleted && (
+            <Alert severity="info">
+              <AlertTitle>Success</AlertTitle>
+              {`Booking has been deleted.`}
+            </Alert>
+          )}
       <PurpleBookButtomNav />
     </div>
   );
