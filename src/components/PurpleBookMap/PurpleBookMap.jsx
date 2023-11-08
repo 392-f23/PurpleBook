@@ -37,9 +37,9 @@ const tennisIcon = new L.Icon({
   shadowSize: [41, 41],
 });
 
-const nuIcon = new L.Icon({
+const soccerIcon = new L.Icon({
   iconUrl:
-    "https://raw.githubusercontent.com/Hongda-OSU/PicGo-2.3.1/master/imgicon.svg",
+    "https://raw.githubusercontent.com/Hongda-OSU/PicGo-2.3.1/master/imgsoccer.svg",
   shadowUrl:
     "https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/images/marker-shadow.png",
   iconSize: [35, 35],
@@ -48,12 +48,89 @@ const nuIcon = new L.Icon({
   shadowSize: [41, 41],
 });
 
-const userIcon = new L.Icon({
+const baseballIcon = new L.Icon({
   iconUrl:
-    "https://raw.githubusercontent.com/Hongda-OSU/PicGo-2.3.1/master/img13123.svg",
+    "https://raw.githubusercontent.com/Hongda-OSU/PicGo-2.3.1/master/imgbaseball.svg",
+  shadowUrl:
+    "https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/images/marker-shadow.png",
+  iconSize: [38, 38],
+  iconAnchor: [12, 41],
+  popupAnchor: [1, -34],
+  shadowSize: [41, 41],
+});
+
+const golfIcon = new L.Icon({
+  iconUrl:
+    "https://raw.githubusercontent.com/Hongda-OSU/PicGo-2.3.1/master/imggolf.svg",
   shadowUrl:
     "https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/images/marker-shadow.png",
   iconSize: [35, 35],
+  iconAnchor: [12, 41],
+  popupAnchor: [1, -34],
+  shadowSize: [41, 41],
+});
+
+const racquetballIcon = new L.Icon({
+  iconUrl:
+    "https://raw.githubusercontent.com/Hongda-OSU/PicGo-2.3.1/master/img6835910.png",
+  shadowUrl:
+    "https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/images/marker-shadow.png",
+  iconSize: [40, 40],
+  iconAnchor: [12, 41],
+  popupAnchor: [1, -34],
+  shadowSize: [41, 41],
+});
+
+const badmintonIcon = new L.Icon({
+  iconUrl:
+    "https://raw.githubusercontent.com/Hongda-OSU/PicGo-2.3.1/master/img1323.svg",
+  shadowUrl:
+    "https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/images/marker-shadow.png",
+  iconSize: [35, 35],
+  iconAnchor: [12, 41],
+  popupAnchor: [1, -34],
+  shadowSize: [41, 41],
+});
+
+const tableTennisIcon = new L.Icon({
+  iconUrl:
+    "https://raw.githubusercontent.com/Hongda-OSU/PicGo-2.3.1/master/imgtt.svg",
+  shadowUrl:
+    "https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/images/marker-shadow.png",
+  iconSize: [38, 38],
+  iconAnchor: [12, 41],
+  popupAnchor: [1, -34],
+  shadowSize: [41, 41],
+});
+
+const bowlingBallIcon = new L.Icon({
+  iconUrl:
+    "https://raw.githubusercontent.com/Hongda-OSU/PicGo-2.3.1/master/imgbb.svg",
+  shadowUrl:
+    "https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/images/marker-shadow.png",
+  iconSize: [38, 38],
+  iconAnchor: [12, 41],
+  popupAnchor: [1, -34],
+  shadowSize: [41, 41],
+});
+
+const nuIcon = new L.Icon({
+  iconUrl:
+    "https://raw.githubusercontent.com/Hongda-OSU/PicGo-2.3.1/master/imgicon.svg",
+  shadowUrl:
+    "https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/images/marker-shadow.png",
+  iconSize: [40, 40],
+  iconAnchor: [12, 41],
+  popupAnchor: [1, -34],
+  shadowSize: [41, 41],
+});
+
+const userIcon = new L.Icon({
+  iconUrl:
+    "https://raw.githubusercontent.com/Hongda-OSU/PicGo-2.3.1/master/imgoutput-onlinegiftools%20(4).gif",
+  shadowUrl:
+    "https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/images/marker-shadow.png",
+  iconSize: [50, 50],
   iconAnchor: [12, 41],
   popupAnchor: [1, -34],
   shadowSize: [41, 41],
@@ -140,8 +217,6 @@ const PurpleBookMap = () => {
   const [triggerLocate, setTriggerLocate] = useState(false);
   const [useNULocation, setUseNULocation] = useState(false);
 
-  console.log(routeInfo);
-
   const handleUseMyLocationChange = (e) => {
     setUseMyLocation(e.target.checked);
     if (e.target.checked) {
@@ -157,8 +232,7 @@ const PurpleBookMap = () => {
   };
 
   const handleRoute = (useLocation, start, end) => {
-    if (!start || !end) return;
-    if (!useLocation) {
+    if (!useLocation || !start || !end) {
       alert('You need to have "Use My Location" or "Use NU Location" enable.');
       return;
     }
@@ -184,6 +258,62 @@ const PurpleBookMap = () => {
         });
       });
     }
+    if (filter === "All" || filter === "Soccer") {
+      Object.values(mapData.Soccer).forEach((court) => {
+        allCourts.push({
+          ...court,
+          type: "Soccer",
+        });
+      });
+    }
+    if (filter === "All" || filter === "Baseball") {
+      Object.values(mapData.Baseball).forEach((court) => {
+        allCourts.push({
+          ...court,
+          type: "Baseball",
+        });
+      });
+    }
+    if (filter === "All" || filter === "Badminton") {
+      Object.values(mapData.Badminton).forEach((court) => {
+        allCourts.push({
+          ...court,
+          type: "Badminton",
+        });
+      });
+    }
+    if (filter === "All" || filter === "Golf") {
+      Object.values(mapData.Golf).forEach((court) => {
+        allCourts.push({
+          ...court,
+          type: "Golf",
+        });
+      });
+    }
+    if (filter === "All" || filter === "Racquetball") {
+      Object.values(mapData.Racquetball).forEach((court) => {
+        allCourts.push({
+          ...court,
+          type: "Racquetball",
+        });
+      });
+    }
+    if (filter === "All" || filter === "Table Tennis") {
+      Object.values(mapData["Table Tennis"]).forEach((court) => {
+        allCourts.push({
+          ...court,
+          type: "Table Tennis",
+        });
+      });
+    }
+    if (filter === "All" || filter === "Bowling Ball") {
+      Object.values(mapData["Bowling Ball"]).forEach((court) => {
+        allCourts.push({
+          ...court,
+          type: "Bowling Ball",
+        });
+      });
+    }
     setCourts(allCourts);
   }, [filter]);
 
@@ -200,7 +330,7 @@ const PurpleBookMap = () => {
           Total Distance: {totalDistance} meters
         </div>
         <div className="route-info-tooltip-estimated-time">
-          Driving Time: {totalTime} seconds
+          Driving Time: {totalTime} seconds (Estimated)
         </div>
         <div className="route-info-tooltip-instructions">
           Route Instructions
@@ -212,6 +342,30 @@ const PurpleBookMap = () => {
         ))}
       </div>
     );
+  };
+
+  const iconSelector = (type) => {
+    switch (type) {
+      case "Basketball":
+        return basketballIcon;
+      case "Tennis":
+        return tennisIcon;
+      case "Soccer":
+        return soccerIcon;
+      case "Baseball":
+        return baseballIcon;
+      case "Badminton":
+        return badmintonIcon;
+      case "Golf":
+        return golfIcon;
+      case "Racquetball":
+        return racquetballIcon;
+      case "Table Tennis":
+        return tableTennisIcon;
+      case "Bowling Ball":
+        return bowlingBallIcon;
+      default:
+    }
   };
 
   return (
@@ -265,6 +419,69 @@ const PurpleBookMap = () => {
                     }
                     label="Tennis"
                   />
+                  <FormControlLabel
+                    control={
+                      <Checkbox
+                        checked={filter === "Soccer"}
+                        onChange={() => setFilter("Soccer")}
+                      />
+                    }
+                    label="Soccer"
+                  />
+                  <FormControlLabel
+                    control={
+                      <Checkbox
+                        checked={filter === "Baseball"}
+                        onChange={() => setFilter("Baseball")}
+                      />
+                    }
+                    label="Baseball"
+                  />
+                  <FormControlLabel
+                    control={
+                      <Checkbox
+                        checked={filter === "Badminton"}
+                        onChange={() => setFilter("Badminton")}
+                      />
+                    }
+                    label="Badminton"
+                  />
+                  <FormControlLabel
+                    control={
+                      <Checkbox
+                        checked={filter === "Golf"}
+                        onChange={() => setFilter("Golf")}
+                      />
+                    }
+                    label="Golf"
+                  />
+                  <FormControlLabel
+                    control={
+                      <Checkbox
+                        checked={filter === "Racquetball"}
+                        onChange={() => setFilter("Racquetball")}
+                      />
+                    }
+                    label="Racquetball"
+                  />
+                  <FormControlLabel
+                    control={
+                      <Checkbox
+                        checked={filter === "Table Tennis"}
+                        onChange={() => setFilter("Table Tennis")}
+                      />
+                    }
+                    label="Table Tennis"
+                  />
+                  <FormControlLabel
+                    control={
+                      <Checkbox
+                        checked={filter === "Bowling Ball"}
+                        onChange={() => setFilter("Bowling Ball")}
+                      />
+                    }
+                    label="Bowling Ball"
+                  />
                 </div>
               </AccordionDetails>
             </Accordion>
@@ -316,7 +533,7 @@ const PurpleBookMap = () => {
               <Marker
                 key={index}
                 position={court.location}
-                icon={court.type === "Basketball" ? basketballIcon : tennisIcon}
+                icon={iconSelector(court.type)}
               >
                 <Popup className="popup">
                   <section className="map-popup">
@@ -342,7 +559,7 @@ const PurpleBookMap = () => {
                             className="map-popup-navigation-user"
                           />
                           <div className="map-popup-navigation-user-text">
-                            USER
+                            My Location
                           </div>
                         </div>
                         <div
