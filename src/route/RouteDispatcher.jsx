@@ -11,7 +11,6 @@ import BasicDateCalendar from "../components/Calendar/Calendar";
 const RouteDispatcher = () => {
   const [user] = useAuthState();
   const [isUserLoggedIn, setIsUserLoggedIn] = useState(user != null);
-
   return (
     <BrowserRouter>
       <Routes>
@@ -34,7 +33,6 @@ const RouteDispatcher = () => {
           element={
             <ProtectedRoute
               isUserLoggedIn={isUserLoggedIn}
-              setIsUserLoggedIn={setIsUserLoggedIn}
               component={PurpleBookMainPage}
             />
           }
@@ -54,6 +52,7 @@ const RouteDispatcher = () => {
             <ProtectedRoute
               isUserLoggedIn={isUserLoggedIn}
               setIsUserLoggedIn={setIsUserLoggedIn}
+              user = {user}
               component={UserProfile}
             />
           }

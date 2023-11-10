@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useState } from "react";
-import { onValue, ref, update } from "firebase/database";
+import { onValue, ref, update, remove } from "firebase/database";
 import {
   getAuth,
   GoogleAuthProvider,
@@ -59,6 +59,21 @@ export const useDbUpdate = (path) => {
   );
 
   return [updateData, result];
+};
+export const useDbDelete = () => {
+  const firebase = getFirebase();
+  const database = getFirebaseDatabase(firebase);
+  const [result, setResult] = useState();
+
+  const deleteNode = useCallback((path, nodeKey) => {
+    const databaseRef = ref(database, path);
+
+    remove(ref(databaseRef, nodeKey))
+      .then(() => setResult(makeResult()))
+      .catch((error) => setResult(makeResult(error)));
+  }, [database]);
+
+  return [deleteNode, result];
 };
 
 export const signInWithGoogle = () => {
