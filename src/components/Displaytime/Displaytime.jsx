@@ -6,7 +6,7 @@ import data from "../../utilities/temp.json";
 import Button from "@mui/material/Button";
 import { useNavigate, useParams } from "react-router-dom";
 import {useDbUpdate, useAuthState } from '../../utilities/firebaseUtils.js'
-import './Displaytime.less'
+import './Displaytime.less';
 
 
 const ButtonBar = ({ message, disabled }) => {
@@ -172,14 +172,14 @@ const Displaytime = (props) => {
   }
 
   return (
-    <div>
+    <div className="list-cont">
       <ListGroup>
         {dayInfo.length === 0 ? (
-          <p>This court is not available on {selectedDay.format()}. </p>
+          <p>This court is not available on {selectedDay.format().split("T")[0]}. </p>
         ) : (
           <>
             {/* {console.log(queryBookHistory(selectedDay, bookHistory))} */}
-            <p>Here are the available times on {selectedDay.format()}:</p>
+            <p style={{width: '80vw'}}>    Here are the available times on {selectedDay.format().split("T")[0]}:    </p>
             {Object.entries(dayInfo)
               .filter(
                 (item) =>

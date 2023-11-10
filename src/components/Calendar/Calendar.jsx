@@ -59,8 +59,10 @@ const BasicDateCalendar = () => {
     
     return (
         <div className={'background-container'}>
+            <h1 style={{marginTop: '20px', fontFamily: "Playpen Sans, cursive"}}>Pick a Time</h1>
             <div className='calendar'>
             <PUDatePicker value={selectedDay} handleSelectDay={handleSelectDay} />
+            
             {selectedDay === undefined || bookHistory === undefined ? <p>No data</p> : <Displaytime selectedDay={selectedDay} receivedData ={receivedData} dayInfo={data[selectedDay.day()]} bookHistory={bookHistory} user={user}/>}
             <PurpleBookButtomNav/>
             </div>

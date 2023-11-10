@@ -8,6 +8,8 @@ import FormControlLabel from "@mui/material/FormControlLabel";
 import { useNavigate } from "react-router-dom";
 import { useState, useEffect } from "react";
 import data from "../../utilities/temp.json";
+import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
+import Button from '@mui/material/Button';
 import "./SelectBar.less";
 
 const SelectBar = () => {
@@ -125,7 +127,7 @@ const SelectBar = () => {
   return (
     <div className="selectbar-selectbar">
       <div className="selectbar-selectbar-filter-container">
-        <Typography>Filter</Typography>
+        <Typography >Filter</Typography>
       </div>
 
       <div className="selectbar-selectbar-accrodin-container">
@@ -199,12 +201,12 @@ const SelectBar = () => {
             </div>
           </AccordionDetails>
         </Accordion>
-        {Object.keys(selectedCourts).length === 0 ||
+        <div  style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', marginTop: '5px', marginLeft:'9px'}}>{Object.keys(selectedCourts).length === 0 ||
         Object.keys(selectedData).length === 0 ? (
-          <p>Please select a sport and a court.</p>
+          <p className="filter-text">Please select a sport and a court.</p>
         ) : (
-          <button onClick={handleButtonClick}>Go to selected court</button>
-        )}
+          <Button className="MUI-button" onClick={handleButtonClick} variant="contained"  endIcon={<AddCircleOutlineIcon/>}>Go to selected court</Button>
+        )}</div>
       </div>
     </div>
   );

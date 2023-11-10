@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from "react";
+import Modal from "react-modal";
 import "./UserProfile.less";
 
 import Alert from "@mui/material/Alert";
 import AlertTitle from "@mui/material/AlertTitle";
 import PurpleBookButtomNav from "../PurpleBookButtomNav/PurpleBookButtomNav";
-import { useAuthState, firebaseSignOut } from "../../utilities/firebaseUtils";
+import {  firebaseSignOut } from "../../utilities/firebaseUtils";
 import { useDbData, useDbDelete } from "../../utilities/firebaseUtils";
 import IconButton from '@mui/material/IconButton';
 import DeleteIcon from '@mui/icons-material/Delete';
@@ -17,7 +18,7 @@ import Button from '@mui/material/Button';
 
 const UserProfile = ({ setIsUserLoggedIn , user }) => {
   //const navigate = useNavigate();
-  const [deleteNode, deleteResult] = useDbDelete();
+  //const [deleteNode, deleteResult] = useDbDelete();
   
   useEffect(() => {
     if (user !== undefined && user !== null) {
@@ -35,7 +36,6 @@ const UserProfile = ({ setIsUserLoggedIn , user }) => {
   useEffect(() => {
     if (data) {
      setCurrBookings(data.booking)
-     //console.log(data)
     }
     if (error) {
       console.error(error);
@@ -43,13 +43,34 @@ const UserProfile = ({ setIsUserLoggedIn , user }) => {
     }
   }, [data, error]);
   const [isBookingDeleted, setBookingDeleted] = useState(false);
+  const [isModalOpen, setModalOpen] = useState(false);
+
+  const openModal = (booking) => {
+    setModalOpen(true);
+  };
+
+  const closeModal = () => {
+    setModalOpen(false);
+  };
+
+  useEffect(() => {
+    if (isBookingDeleted) {
+      setModalOpen(true);
+      setTimeout(() => {
+        setModalOpen(false);
+        setBookingDeleted(false);
+      }, 3000);
+    }
+  }, [isBookingDeleted]);
+
 
   const handleDeleteBooking = (booking, id) => {
-    // change to delete data from database
-    console.log(id)
-    console.log(booking)
-    //
-    //setCurrBookings(updatedBookings);
+   
+    setCurrBookings(currBookings.filter(
+      (currentBooking) => currentBooking !== booking
+    ));
+    console.log(currBookings[1])
+    openModal(booking)
     setBookingDeleted(true);
     setTimeout(() => {
       setBookingDeleted(false);
@@ -83,7 +104,7 @@ const UserProfile = ({ setIsUserLoggedIn , user }) => {
         Logout
       </Button>
         </div>
-        <h3>Upcoming Reservations</h3>
+        <h3>Upcoming Reservations:</h3>
         <div className="upcoming-bookings">
         
            {currBookings ? (
@@ -117,12 +138,13 @@ const UserProfile = ({ setIsUserLoggedIn , user }) => {
           
         </div>
       </div>
-      {isBookingDeleted && (
-            <Alert severity="info">
-              <AlertTitle>Success</AlertTitle>
-              {`Booking has been deleted.`}
-            </Alert>
-          )}
+      <Modal  isOpen={isModalOpen}
+            onRequestClose={closeModal}>
+        <Alert severity="info">
+          <AlertTitle>Success</AlertTitle>
+          {`Booking has been deleted.`}
+        </Alert>
+      </Modal>
       <PurpleBookButtomNav />
     </div>
   );
