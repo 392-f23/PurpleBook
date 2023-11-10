@@ -1,70 +1,63 @@
 import React, { useState, useEffect } from "react";
-import Modal from "react-modal";
 import "./UserProfile.less";
 
 import Alert from "@mui/material/Alert";
 import AlertTitle from "@mui/material/AlertTitle";
 import PurpleBookButtomNav from "../PurpleBookButtomNav/PurpleBookButtomNav";
 import { useAuthState, firebaseSignOut } from "../../utilities/firebaseUtils";
-import { useDbData } from "../../utilities/firebaseUtils";
-import data2 from "./UserProfileTest.json";
+import { useDbData, useDbDelete } from "../../utilities/firebaseUtils";
+import IconButton from '@mui/material/IconButton';
+import DeleteIcon from '@mui/icons-material/Delete';
+import MailIcon from '@mui/icons-material/Mail';
+import LogoutIcon from '@mui/icons-material/Logout';
+import Stack from '@mui/material/Stack';
+
+import Button from '@mui/material/Button';
 
 
 const UserProfile = ({ setIsUserLoggedIn , user }) => {
   //const navigate = useNavigate();
+  const [deleteNode, deleteResult] = useDbDelete();
   
   useEffect(() => {
     if (user !== undefined && user !== null) {
       setIsUserLoggedIn(true);
     }
   }, [user]);
-  console.log(user)
+  
   const userHistoryPath = user ? `/history/${user.displayName}` : null;
-  //const userHistoryPath = user ? `/history/Adrian H` : null;
+  const userBookingPath = user ? `/history/${user.displayName}` : null;
+ // const userHistoryPath = user ? `/history/Adrian Hoffer` : null;
+  //const userBookingPath = user ? `/history/Adrian Hoffer/booking` : null;
   const [data, error] = useDbData(userHistoryPath);
   const [currBookings, setCurrBookings] = useState(null)
   
   useEffect(() => {
     if (data) {
      setCurrBookings(data.booking)
+     //console.log(data)
     }
     if (error) {
       console.error(error);
       console.log("no data")
     }
   }, [data, error]);
-  const [selectedBooking, setSelectedBooking] = useState(null);
-  const [modalIsOpen, setModalIsOpen] = useState(false);
   const [isBookingDeleted, setBookingDeleted] = useState(false);
 
-  const openModal = (booking) => {
-    setSelectedBooking(booking);
-    setModalIsOpen(true);
-  };
-
-  const closeModal = () => {
-    setSelectedBooking(null);
-    setModalIsOpen(false);
-  };
-
-  const handleDeleteBooking = (booking) => {
+  const handleDeleteBooking = (booking, id) => {
     // change to delete data from database
-    data2.bookings = data2.bookings.filter(
-      (currentBooking) => currentBooking.id !== booking.id
-    );
+    console.log(id)
+    console.log(booking)
+    //
+    //setCurrBookings(updatedBookings);
     setBookingDeleted(true);
     setTimeout(() => {
       setBookingDeleted(false);
     }, 3000);
-    closeModal();
   };
   const handleFirebaseLogout = () => {
     setIsUserLoggedIn(false);
     firebaseSignOut();
-  };
-
-  const handleBooking = (booking) => {
-    openModal(booking);
   };
 
   const handleSendEmail = (booking) => {
@@ -75,13 +68,6 @@ const UserProfile = ({ setIsUserLoggedIn , user }) => {
     closeModal();
   };
 
-  const handleSendSMS = (booking) => {
-    //for text message sharing alert
-    const message = `Court: ${booking.courtName}%0ALocation: ${booking.location}%0ADate: ${booking.date}%0ATime: ${booking.time}`;
-
-    window.location.href = `sms:?&body=${message}`;
-    closeModal();
-  };
 
   return (
     <div className="background-container">
@@ -93,41 +79,17 @@ const UserProfile = ({ setIsUserLoggedIn , user }) => {
           <div className="top-text">
             <p> {user.email}</p>
           </div>
-          <button onClick={handleFirebaseLogout}>Sign Out</button>
+          <Button onClick={handleFirebaseLogout} variant="outlined" color="error" endIcon={<LogoutIcon/>}>
+        Logout
+      </Button>
         </div>
         <h3>Upcoming Reservations</h3>
         <div className="upcoming-bookings">
-          
-          {selectedBooking && (
-            <Modal
-              isOpen={modalIsOpen}
-              onRequestClose={closeModal}
-              contentLabel="Booking Actions"
-              className="ReactModal__Content"
-            >
-              <h2>How would you like to proceed?</h2>
-              <div>
-                <button onClick={() => handleSendEmail(selectedBooking)}>
-                  Share via Email
-                </button>
-                <button onClick={() => handleSendSMS(selectedBooking)}>
-                  Share via SMS
-                </button>
-                <button
-                  onClick={() => {
-                    handleDeleteBooking(selectedBooking);
-                  }}
-                >
-                  Delete
-                </button>
-                <button onClick={closeModal}>Cancel</button>
-              </div>
-            </Modal>
-          )}
+        
            {currBookings ? (
             <ul>
-              {currBookings.map((booking) => (
-                <li key={booking.id}>
+              {currBookings.map((booking, id) => (
+                <li key={id}>
                   Court: <strong>{booking.courtName}</strong>
                   <br />
                   Location: <strong>{booking.location}</strong>
@@ -137,13 +99,15 @@ const UserProfile = ({ setIsUserLoggedIn , user }) => {
                   Time: <strong>{booking.time}</strong>
                   <br />
                   <div className="button-cont">
-                    <button
-                      className="handle-book"
-                      onClick={() => handleBooking(booking)}
-                    >
-                      {" "}
-                      Edit
-                    </button>
+                    
+                    <Stack direction="row" spacing={2}>
+      <Button onClick={() => handleDeleteBooking(booking, id)} variant="outlined" startIcon={<DeleteIcon />}>
+        Delete
+      </Button>
+      <Button onClick={() => handleSendEmail(booking)} variant="contained" endIcon={<MailIcon />}>
+        Send
+      </Button>
+    </Stack>
                   </div>
                 </li>
               ))}

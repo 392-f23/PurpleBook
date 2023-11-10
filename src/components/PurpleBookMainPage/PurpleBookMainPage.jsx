@@ -10,7 +10,7 @@ const PurpleBookMainPage = ({ setIsUserLoggedIn }) => {
   const [data, error] = useDbData("/");
   useEffect(() => {
     if (data) {
-     console.log(data.history)
+     console.log(data)
     }
     if (error) {
       console.error(error);
